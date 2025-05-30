@@ -1,40 +1,34 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import './index.css';
-import { IfxSlider, IfxCheckbox } from '@infineon/infineon-design-system-react'
+import { IfxContentSwitcher, IfxContentSwitcherItem } from '@infineon/infineon-design-system-react'
 
 function App() {
+  const tabMap = ["gallery", "analysis"];
+  const [activeContent, setActiveContent] = useState("gallery");
+
+  useEffect(() => {
+    console.log("Content updated:", activeContent);
+  }, [activeContent]);
+
   return (
-    <div className='wrapper flex w-full flex-col gap-12'>
-      <IfxSlider value="30" min="0" max="100" step="1" min-value-handle="undefined" max-value-handle="undefined" type="single"></IfxSlider>
-
-      <IfxCheckbox
-        error="false"
-        disabled="false"
-        checked="false"
-        size="s"
-        indeterminate="false"
-        name="checkbox"
-        className='flex' // works like expected
-        >
-        Text
-      </IfxCheckbox>
-
-      <IfxCheckbox
-        error="false"
-        disabled="false"
-        checked="false"
-        size="s"
-        indeterminate="false"
-        name="checkbox"
-        className='block' // there is the problem
-        >
-        Text
-      </IfxCheckbox>
-
-      <IfxSlider value="70" min="0" max="100" step="1" min-value-handle="undefined" max-value-handle="undefined" type="single"></IfxSlider>
+    <div>
+      <IfxContentSwitcher
+        onIfxChange={event => {
+          console.log("newValue: ", event.detail.newValue);
+          console.log("Update: ", tabMap[event.detail.newValue]);
+          setActiveContent(tabMap[event.detail.newValue])
+        }}
+      >
+        <IfxContentSwitcherItem value="gallery" selected={activeContent === "gallery"}>
+          Gallery
+        </IfxContentSwitcherItem>
+        <IfxContentSwitcherItem value="analysis" selected={activeContent === "analysis"}>
+          Analysis
+        </IfxContentSwitcherItem>
+      </IfxContentSwitcher>
     </div>
-  )
+  );
 }
 
 export default App
