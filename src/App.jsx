@@ -1,32 +1,14 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import './index.css';
-import { IfxContentSwitcher, IfxContentSwitcherItem } from '@infineon/infineon-design-system-react'
+import { IfxSlider } from '@infineon/infineon-design-system-react'
 
-function App() {
-  const tabMap = ["gallery", "analysis"];
-  const [activeContent, setActiveContent] = useState("gallery");
-
-  useEffect(() => {
-    console.log("Content updated:", activeContent);
-  }, [activeContent]);
-
-  return (
+function App() {return (
     <div>
-      <IfxContentSwitcher
-        onIfxChange={event => {
-          console.log("newValue: ", event.detail.newValue);
-          console.log("Update: ", tabMap[event.detail.newValue]);
-          setActiveContent(tabMap[event.detail.newValue])
-        }}
-      >
-        <IfxContentSwitcherItem value="gallery" selected={activeContent === "gallery"}>
-          Gallery
-        </IfxContentSwitcherItem>
-        <IfxContentSwitcherItem value="analysis" selected={activeContent === "analysis"}>
-          Analysis
-        </IfxContentSwitcherItem>
-      </IfxContentSwitcher>
+      <div style={{ width: "500px", height: "100vh", display: "flex", flexDirection: "column", alignItems: "start", justifyContent: "start", padding: "20px", backgroundColor: "#bbb", gap: "20px" }}>
+        <IfxSlider value="50" min="0" max="100" step="1" min-value-handle="20" max-value-handle="80" type="single" style={{ width: "100%" }}></IfxSlider>
+        <IfxSlider value="50" min="0" max="100" step="1" min-value-handle="20" max-value-handle="80" type="double" style={{ width: "100%" }}></IfxSlider>
+      </div>
     </div>
   );
 }
